@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="full" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Bootstrap 3 - Form Builder</title>
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Bootstrap 3 - Form Builder</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                      <a href="https://github.com/icytin">By icytin</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div id="mainHolder" class="container">
+        <div class="row">
+            <!-- Source -->
+            <div id="componentHolder" class="col-lg-6 col-sm-12">
+              <h2>Drag components to...</h2>
+              <hr></hr>
+              <div id="componentsTabPane">
+                <ul class="nav nav-tabs" id="formtabs">
+                  <!-- Tab nav -->
+                  <li class="active"><a href="#inputs" data-toggle="tab">Input</a></li>
+                  <li><a href="#radioscheckboxes" data-toggle="tab">Radios / Checkboxes</a></li>
+                  <li><a href="#select" data-toggle="tab">Select</a></li>
+                  <li><a href="#buttons" data-toggle="tab">Buttons</a></li>
+                </ul>
+                <form class="form-horizontal" id="components">
+                  <fieldset>
+                    <div class="tab-content">
+                    
+                      <!-- Input pane -->
+                      <div id="inputs" class="sourceHolder connectedSortable tab-pane active">
+                        <!-- Load input alternatives here -->
+                      </div>
+                      
+                      <!-- Radio pane -->
+                      <div id="radioscheckboxes" class="sourceHolder connectedSortable tab-pane">
+                        <!-- Load radio alternatives here -->
+                      </div>
+                      
+                      <!-- Select pane -->
+                      <div id="select" class="sourceHolder connectedSortable tab-pane">
+                        <!-- Load select alternatives here -->
+                      </div>
+                      
+                      <!-- Button pane -->
+                      <div id="buttons" class="sourceHolder connectedSortable tab-pane">
+                        <!-- Load button alternatives here -->
+                      </div>
+                      
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+            
+            <!-- Target -->
+            <div id="formVisualizer" class="col-lg-6 col-sm-12">
+              <h2>Your Form</h2>
+              <hr></hr>
+              <form class="form-horizontal area">
+                <legend class="">New Form</legend>
+                <div id="target" class="connectedSortable">
+                  
+                </div>
+              </form>
+            </div>
+        </div>        
+        <div class="row">
+          <div class="col-lg-12 col-sm-12">
+            <h2>Generated markup</h2>
+            <hr></hr>
+            <textarea id="formSource"></textarea>
+          </div>
+        </div>
+    </div>
+    
+    <div id="contextMenu" class="dropdown clearfix">
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
+        <li><a id="edit" tabindex="-1" href="javascript:void(0)">Edit<span class="pull-right glyphicon glyphicon-pencil"></span></a></li>
+        <li><a id="validationRules" tabindex="-1" href="javascript:void(0)">Validation rules<span class="pull-right glyphicon glyphicon-wrench"></span></a></li>
+        <li class="divider"></li>
+        <li><a id="clearForm" tabindex="-1" href="javascript:void(0)">Clear form<span class="pull-right glyphicon glyphicon-trash"></span></a></li>
+      </ul>
+    </div>
+    
+    <!-- Confirm modal -->
+    <a href="#confirm-modal" class="modal-toggle hidden" data-toggle="modal"><i class="icon-trash"></i> Show Alert Modal</a>
+    <div id="confirm-modal" class="modal">
+      <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+                <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+                <h3 class="center-block">Clear Form</h3>
+            </div>
+            <div class="modal-body text-center">
+                 <p>The entire form will be cleared. Are you sure?</p>
+            </div>
+            <div class="modal-footer text-center">
+              <a id="cancelButton" href="#" data-dismiss="modal" aria-hidden="true" class="btn-lg btn btn-default">Cancel</a>
+              <a id="confirmButton" href="#" data-dismiss="modal" aria-hidden="true" class="btn-lg btn btn-danger">OK</a>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery.sortable.min.js"></script>
+    <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="js/jQuery.getComments.min.js"></script>
+    <script src="js/jQuery.htmlClean.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
