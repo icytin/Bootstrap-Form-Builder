@@ -659,7 +659,7 @@ var FormBuilder = function ($) {
           this.textInput(target);
         },
         defaultInputApplyCode: function(target) {
-          var inputSelector = target.find('textarea').length === 0 ? 'input[type="text"]' : 'textarea';
+          var inputSelector = target.find('textarea').length === 0 ? 'input[type="text"], input[type="password"]' : 'textarea';
           
           var $editForm = $('#editForm');
           if($editForm.find('#idInput').val() !== '') {
