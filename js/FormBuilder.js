@@ -876,7 +876,7 @@ var FormBuilder = function ($) {
           var $dom = $('html').clone();
           $dom.removeAttr('class');
           $dom.find('head').html('');
-          $dom.find('body').html('').append('<!-- Body content section -->\n\n<div class="container"></div>');
+          $dom.find('body').html('').append('\n<!-- Body content section -->\n\n<div class="container"></div>\n');
           
           // Head
           $('\n<meta charset="utf-8">\n' +
