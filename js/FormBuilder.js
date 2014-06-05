@@ -875,8 +875,9 @@ var FormBuilder = function ($) {
         getBootstrapTemplate: function(jQueryVersion, bootstrapVersion) {
           var $dom = $('html').clone();
           $dom.removeAttr('class');
+          $dom.find('body').removeAttr('screen_capture_injected');
           $dom.find('head').html('');
-          $dom.find('body').html('').append('\n<!-- Body content section -->\n\n<div class="container"></div>\n');
+          $dom.find('body').html('').append('\n<!-- Body content section -->\n\n<div class="container">\n</div>\n');
           
           // Head
           $('\n<meta charset="utf-8">\n' +
