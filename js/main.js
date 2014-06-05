@@ -27,6 +27,7 @@ var FormBuilder = function ($) {
       TargetHandler.init();
       ComponentActionHandler.init();
       initTextArea();
+      FileSaver.init();
     }
     
     var initTextArea = function() {
@@ -865,6 +866,25 @@ var FormBuilder = function ($) {
           $('#formSource').trigger('change');
         }
       }
+    }(jQuery);
+    
+    // ==== File Saver ====
+    var FileSaver = function() {
+      return {
+        init: function() {
+          $('#saveFileButton').click(function() {
+            try
+            {
+              $('#fileErr').remove();
+              var blob = new Blob([$('#formSource').val()], {type: "text/plain;charset=utf-8"});
+              saveAs(blob, $('#saveFileInput').val());
+            }
+            catch(e) {
+              $('<br /><div id="fileErr" class="alert alert-danger"><strong>Oh snap!</strong> The file couldn´t be saved.</div>').insertAfter($(this).parents('.input-group'));
+            }
+          });
+        }
+      };
     }(jQuery);
 
     //== Public interface ==
