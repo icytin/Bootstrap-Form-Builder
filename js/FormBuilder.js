@@ -191,6 +191,8 @@ var FormBuilder = function ($) {
                 $(contextMenu).hide();
               }
             }
+            
+            return true;
           });
         }
       };
@@ -868,6 +870,47 @@ var FormBuilder = function ($) {
       }
     }(jQuery);
     
+    var PageBuilder = function() {
+      return {
+        getBootstrapTemplate: function(jQueryVersion, bootstrapVersion) {
+          var $dom = $('html').clone();
+          $dom.removeAttr('class');
+          $dom.find('head').html('');
+          $dom.find('body').html('').append('<!-- Body content section -->\n\n<div class="container"></div>');
+          
+          // Head
+          $('\n<meta charset="utf-8">\n' +
+            '<meta http-equiv="X-UA-Compatible" content="IE=edge">\n' +
+            '<meta name="viewport" content="width=device-width, initial-scale=1">\n' +
+            '<title></title>\n' +
+
+            '<!-- Bootstrap. Latest compiled and minified CSS -->\n' +
+            '<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/' + bootstrapVersion + '/css/bootstrap.min.css">\n' +
+
+            '<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->\n' +
+            '<!-- WARNING: Respond.js doesnt work if you view the page via file:// -->\n' +
+            '<!--[if lt IE 9]>\n' +
+              '<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>\n' +
+              '<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>\n' +
+            '<![endif]-->\n')
+            .each(function(i, val) {
+              $dom.find('head').append(val);
+            });
+                
+          // Body
+          $('<!-- jQuery (necessary for Bootstraps JavaScript plugins) -->\n' +
+            '<script src="https://ajax.googleapis.com/ajax/libs/jquery/' + jQueryVersion + '/jquery.min.js"></script>\n' +
+            '<!-- Latest compiled and minified JavaScript -->\n' +
+            '<script src="//netdna.bootstrapcdn.com/bootstrap/' + bootstrapVersion + '/js/bootstrap.min.js"></script>\n')
+            .each(function(i, val) {
+              $dom.find('body').append(val);
+            });
+                  
+          return $dom;
+        }
+      };
+    }(jQuery);
+    
     // ==== File Saver ====
     var FileSaver = function() {
       return {
@@ -876,7 +919,16 @@ var FormBuilder = function ($) {
             try
             {
               $('#fileErr').remove();
-              var blob = new Blob([$('#formSource').val()], {type: "text/plain;charset=utf-8"});
+              var formSource = $('#formSource').val(); // Form only
+              var source = formSource;
+              if($('#appendFormToTemplate').is(':checked')) {
+                var $page = PageBuilder.getBootstrapTemplate('1.11.0', '3.1.1');
+                formSource = $('\n' + $.htmlClean($('#formSource').val() + '\n', {format: true, allowComments: true, allowedAttributes: [["id"], ["style"], ["for"], ["name"], ["class"], ["type"]] } ));
+                $(formSource).prependTo($page.find('body .container'));
+                source = '<!DOCTYPE html>\n<html lang="en">\n' + $page.html() + '\n</html>';
+              }
+              
+              var blob = new Blob([source], {type: "text/plain;charset=utf-8"});
               saveAs(blob, $('#saveFileInput').val());
             }
             catch(e) {

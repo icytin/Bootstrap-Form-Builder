@@ -102,10 +102,26 @@
             <textarea id="formSource"></textarea>
           </div>
         </div>
+        <!-- Save form to file section -->
         <div class="row">
           <div class="col-lg-6 col-sm-12">
             <h2>Save to file</h2>
             <hr></hr>
+            <!-- Choose type of save -->
+            <div>
+              <label class="control-label col-sm-3" for="choseTypeOfSave" style="cursor: pointer;">
+                Create file
+              </label>
+              <div class="col-sm-9">
+                <label class="radio" for="choseTypeOfSave-0" style="cursor: pointer;">
+                  <input id="formCodeOnly" type="radio" name="choseTypeOfSave" value="formCode" checked="checked" />with form code only
+                </label>
+                <label class="radio" for="choseTypeOfSave-1" style="cursor: pointer;">
+                  <input id="appendFormToTemplate" type="radio" name="choseTypeOfSave" value="formCodeToTemplate" />append the form code to a starter template (bootstrap and jQuery)
+                </label>
+              </div>
+            </div>
+            <!-- Choose file name and save -->
             <div class="input-group">
               <input id="saveFileInput" type="text" class="form-control" placeholder="myform.html">
               <div class="input-group-btn">
@@ -114,6 +130,7 @@
             </div>
           </div>
         </div>
+        <!-- /End save to file -->
     </div>
     
     <div id="contextMenu" class="dropdown clearfix">
@@ -154,7 +171,7 @@
     <script src="js/jQuery.htmlClean.js"></script>
     <script src="js/FileSaver.js"></script>
     
-    <script src="js/main.js"></script>
+    <script src="js/FormBuilder.js"></script>
 
 </body>
 
