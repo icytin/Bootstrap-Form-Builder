@@ -876,8 +876,8 @@ var FormBuilder = function ($) {
           var $dom = $('html').clone();
           $dom.removeAttr('class');
           $dom.find('body').removeAttr('screen_capture_injected');
-          $dom.find('head').html('');
-          $dom.find('body').html('').append('\n<!-- Body content section -->\n\n<div class="container">\n</div>\n');
+          $dom.find('head').html('\n');
+          $dom.find('body').html('\n').append('\n<!-- Body content section -->\n\n<div class="container">\n</div>\n');
           
           // Head
           $('\n<meta charset="utf-8">\n' +
@@ -906,7 +906,7 @@ var FormBuilder = function ($) {
             .each(function(i, val) {
               $dom.find('body').append(val);
             });
-                  
+            
           return $dom;
         }
       };
@@ -924,7 +924,7 @@ var FormBuilder = function ($) {
               var source = formSource;
               if($('#appendFormToTemplate').is(':checked')) {
                 var $page = PageBuilder.getBootstrapTemplate('1.11.0', '3.1.1');
-                formSource = $('\n' + $.htmlClean($('#formSource').val() + '\n', {format: true, allowComments: true, allowedAttributes: [["id"], ["style"], ["for"], ["name"], ["class"], ["type"]] } ));
+                formSource = $('\n' + $.htmlClean($('#formSource').val(), {format: true, allowComments: true, allowedAttributes: [["id"], ["style"], ["for"], ["name"], ["class"], ["type"]] } ) + '\n');
                 $(formSource).prependTo($page.find('body .container'));
                 source = '<!DOCTYPE html>\n<html lang="en">\n' + $page.html() + '\n</html>';
               }
