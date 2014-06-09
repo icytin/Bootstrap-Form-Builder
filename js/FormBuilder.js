@@ -958,6 +958,11 @@ var FormBuilder = function ($) {
                 $frame.height($frame.contents().find('html').height() + 20);
                 $('#previewSection').show();
                 
+                // Form fixes
+                $frame.contents().find('form').submit(function( event ) {
+                  event.preventDefault();
+                });
+                
                 // Back
                 $('#previewExitLink').unbind('click').click(function() {
                   $('#mainHolder .row').toggle();
