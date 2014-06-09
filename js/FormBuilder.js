@@ -879,6 +879,9 @@ var FormBuilder = function ($) {
           $dom.find('head').html('\n');
           $dom.find('body').html('\n').append('\n<!-- Body content section -->\n\n<div class="container">\n</div>\n');
           
+                      // Optional theme
+            var optionalTheme = $('#themeSelect').val() !== '' ? ('<!-- Optional theme -->\n<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/' + bootstrapVersion + '/' + $('#themeSelect').val() + '">\n') : '\n';
+          
           // Head
           $('\n<meta charset="utf-8">\n' +
             '<meta http-equiv="X-UA-Compatible" content="IE=edge">\n' +
@@ -887,6 +890,8 @@ var FormBuilder = function ($) {
 
             '<!-- Bootstrap. Latest compiled and minified CSS -->\n' +
             '<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/' + bootstrapVersion + '/css/bootstrap.min.css">\n' +
+            
+            optionalTheme +
 
             '<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->\n' +
             '<!-- WARNING: Respond.js doesnt work if you view the page via file:// -->\n' +
@@ -916,25 +921,58 @@ var FormBuilder = function ($) {
     var FileSaver = function() {
       return {
         init: function() {
-          $('#saveFileButton').click(function() {
+        
+          // Save button
+          $('#saveFileButton, #previewButton').click(function() {
             try
             {
               $('#fileErr').remove();
               var formSource = $('#formSource').val(); // Form only
               var source = formSource;
               if($('#appendFormToTemplate').is(':checked')) {
-                var $page = PageBuilder.getBootstrapTemplate('1.11.0', '3.1.1');
+                var $page = PageBuilder.getBootstrapTemplate($('#jQueryVersionInput').val(), $('#bootstrapVersionInput').val());
                 formSource = $('\n' + $.htmlClean($('#formSource').val(), {format: true, allowComments: true, allowedAttributes: [["id"], ["style"], ["for"], ["name"], ["class"], ["type"]] } ) + '\n');
                 $(formSource).prependTo($page.find('body .container'));
                 source = '<!DOCTYPE html>\n<html lang="en">\n' + $page.html() + '\n</html>';
               }
               
               var blob = new Blob([source], {type: "text/plain;charset=utf-8"});
-              saveAs(blob, $('#saveFileInput').val());
+              if($(this).attr('id') === 'saveFileButton') {
+                saveAs(blob, $('#saveFileInput').val());
+              }
+              else {
+                $('#mainHolder .row').toggle();
+                if($('#previewSection iframe').length === 0) {
+                  $('<iframe />', {
+                      name: 'previewFrame',
+                      id:   'previewFrame',
+                      width: '100%',
+                      frameBorder: '0'
+                      
+                  }).appendTo('#previewSection div:eq(0)');
+                }
+                
+                // Set source and show the iframe
+                var $frame = $('#previewSection iframe');
+                $frame.contents().find('html').html(source);
+                $frame.height($frame.contents().find('html').height() + 20);
+                $('#previewSection').show();
+                
+                // Back
+                $('#previewExitLink').unbind('click').click(function() {
+                  $('#mainHolder .row').toggle();
+                  $('#previewSection').hide();
+                });
+              }
             }
             catch(e) {
               $('<br /><div id="fileErr" class="alert alert-danger"><strong>Oh snap!</strong> The file couldn´t be saved.</div>').insertAfter($(this).parents('.input-group'));
             }
+          });
+          
+          // Type of save change
+          $('input[name="choseTypeOfSave"]').change(function() {
+            $(this).val() === 'formCodeToTemplate' ? $('#pageOptionSection').show() : $('#pageOptionSection').hide();
           });
         }
       };

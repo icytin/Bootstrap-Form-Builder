@@ -104,7 +104,7 @@
         </div>
         <!-- Save form to file section -->
         <div class="row">
-          <div class="col-lg-6 col-sm-12">
+          <div class="col-lg-9 col-sm-12">
             <h2>Save to file</h2>
             <hr></hr>
             <!-- Choose type of save -->
@@ -120,17 +120,70 @@
                   <input id="appendFormToTemplate" type="radio" name="choseTypeOfSave" value="formCodeToTemplate" />append the form code to a starter template (bootstrap and jQuery)
                 </label>
               </div>
-            </div>
+              <div class="clear"></div>
+              <div id="pageOptionSection" class="col-sm-12" style="display: none;">
+                <!-- Lib versions -->
+                <div class="col-sm-3"></div>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    <span class="input-group-addon">jQuery Version</span>
+                    <input id="jQueryVersionInput" name="jQueryVersionInput" type="text" class="form-control" placeholder="placeholder" value="1.11.0">
+                  </div>
+                  <p class="help-block"></p>
+                </div>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    <span class="input-group-addon">Bootstrap Version</span>
+                    <input id="bootstrapVersionInput" name="bootstrapVersionInput" type="text" class="form-control" placeholder="placeholder" value="3.1.1">
+                  </div>
+                  <p class="help-block"></p>
+                </div>
+                
+                <!-- Select single. Themes -->
+                <label class="col-sm-3 control-label" for="themeSelect">Theme</label>
+                <div class="col-sm-6">
+                  <select id="themeSelect" name="themeSelect" class="form-control">
+                    <option value="">No theme</option>
+                    <option value="amelia/bootstrap.min.css">Amelia</option>
+                    <option value="cerulean/bootstrap.min.css">Cerulean</option>
+                    <option value="cosmo/bootstrap.min.css">Cosmo</option>
+                    <option value="cyborg/bootstrap.min.css">Cyborg</option>
+                    <option value="flatly/bootstrap.min.css">Flaty</option>
+                    <option value="journal/bootstrap.min.css">Journal</option>
+                    <option value="lumen/bootstrap.min.css">Lumen</option>
+                    <option value="readable/bootstrap.min.css">Readable</option>
+                    <option value="simplex/bootstrap.min.css">Simplex</option>
+                    <option value="slate/bootstrap.min.css">Slate</option>
+                    <option value="spacelab/bootstrap.min.css">SpaceLab</option>
+                    <option value="superhero/bootstrap.min.css">Superhero</option>
+                    <option value="united/bootstrap.min.css">United</option>
+                    <option value="yeti/bootstrap.min.css">Yeti</option>
+                    <option value="darkly/bootstrap.min.css">Darkly</option>
+                  </select>
+                  <p class="help-block"></p>
+                </div>
+              </div>
+              <div class="clear"></div>
             <!-- Choose file name and save -->
-            <div class="input-group">
+            <div class="input-group" style="padding-top: 15px;">
               <input id="saveFileInput" type="text" class="form-control" placeholder="myform.html">
               <div class="input-group-btn">
                 <button id="saveFileButton" type="button" class="btn btn-default" tabindex="-1">Create file</button>
+                <button id="previewButton" type="button" class="btn btn-default" tabindex="-1">Preview</button>
               </div>
             </div>
           </div>
         </div>
-        <!-- /End save to file -->
+      <!-- /End save to file -->
+      </div>
+      <div id="previewSection" class="row" style="display: none; padding-bottom: 20px;">
+          <div class="col-sm-12">
+            <h2>Preview</h2>
+          </div>
+          <div class="col-sm-12">
+            <a id="previewExitLink" href="javascript:void(0)">Tillbaka</a>
+          </div>
+      </div>
     </div>
     
     <div id="contextMenu" class="dropdown clearfix">
@@ -170,7 +223,7 @@
     <script src="js/jQuery.getComments.min.js"></script>
     <script src="js/jQuery.htmlClean.js"></script>
     <script src="js/FileSaver.js"></script>
-	<script src="js/jquery.ui.touch-punch.min.js"></script>
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
     
     <script src="js/FormBuilder.js"></script>
 
