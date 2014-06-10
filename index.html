@@ -40,149 +40,216 @@
     </nav>
 
     <div id="mainHolder" class="container">
-        <div class="row">
-            <!-- Source -->
-            <div id="componentHolder" class="col-lg-6 col-sm-12">
-              <h2>Drag components to...</h2>
-              <hr></hr>
-              <div id="componentsTabPane">
-                <ul class="nav nav-tabs" id="formtabs">
-                  <!-- Tab nav -->
-                  <li class="active"><a href="#inputs" data-toggle="tab">Input</a></li>
-                  <li><a href="#radioscheckboxes" data-toggle="tab">Radios / Checkboxes</a></li>
-                  <li><a href="#select" data-toggle="tab">Select</a></li>
-                  <li><a href="#buttons" data-toggle="tab">Buttons</a></li>
-                </ul>
-                <form class="form-horizontal" id="components">
-                  <fieldset>
-                    <div class="tab-content">
+    
+      <!-- The main wizard -->
+      <div id="mainWizard">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul>
+                <li><a href="#tab1" data-toggle="tab">Layout</a></li>
+                <li><a href="#tab2" data-toggle="tab">Validation</a></li>
+                <li><a href="#tab3" data-toggle="tab">Libraries</a></li>
+                <li><a href="#tab4" data-toggle="tab">Source</a></li>
+                <li><a href="#tab5" data-toggle="tab">Preview</a></li>
+                <li><a href="#tab6" data-toggle="tab">Finish</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="progress progress-striped active">
+          <div class="progress-bar progress-bar-default"  role="progressbar"aria-valuemin="0" aria-valuemax="100">
+            <span class="sr-only"></span>
+          </div>
+        </div>
+        
+        <div class="tab-content">
+          
+          <!-- Layout tab -->
+          <div class="tab-pane" id="tab1">
+            
+            <div class="row">
+              <!-- Source -->
+              <div id="componentHolder" class="col-lg-6 col-sm-12">
+                <h2>Drag components to...</h2>
+                <hr></hr>
+                <div id="componentsTabPane">
+                  <ul class="nav nav-tabs" id="formtabs">
+                    <!-- Tab nav -->
+                    <li class="active"><a href="#inputs" data-toggle="tab">Input</a></li>
+                    <li><a href="#radioscheckboxes" data-toggle="tab">Radios / Checkboxes</a></li>
+                    <li><a href="#select" data-toggle="tab">Select</a></li>
+                    <li><a href="#buttons" data-toggle="tab">Buttons</a></li>
+                  </ul>
+                  <form class="form-horizontal" id="components">
+                    <fieldset>
+                      <div class="tab-content">
+                      
+                        <!-- Input pane -->
+                        <div id="inputs" class="sourceHolder connectedSortable tab-pane active">
+                          <!-- Load input alternatives here -->
+                        </div>
+                        
+                        <!-- Radio pane -->
+                        <div id="radioscheckboxes" class="sourceHolder connectedSortable tab-pane">
+                          <!-- Load radio alternatives here -->
+                        </div>
+                        
+                        <!-- Select pane -->
+                        <div id="select" class="sourceHolder connectedSortable tab-pane">
+                          <!-- Load select alternatives here -->
+                        </div>
+                        
+                        <!-- Button pane -->
+                        <div id="buttons" class="sourceHolder connectedSortable tab-pane">
+                          <!-- Load button alternatives here -->
+                        </div>
+                        
+                      </div>
+                    </fieldset>
+                  </form>
+                </div>
+              </div>
+              
+              <!-- Target -->
+              <div id="formVisualizer" class="col-lg-6 col-sm-12">
+                <h2>Your Form</h2>
+                <hr></hr>
+                <form class="form-horizontal area">
+                  <legend class="">New Form</legend>
+                  <div id="target" class="connectedSortable">
                     
-                      <!-- Input pane -->
-                      <div id="inputs" class="sourceHolder connectedSortable tab-pane active">
-                        <!-- Load input alternatives here -->
-                      </div>
-                      
-                      <!-- Radio pane -->
-                      <div id="radioscheckboxes" class="sourceHolder connectedSortable tab-pane">
-                        <!-- Load radio alternatives here -->
-                      </div>
-                      
-                      <!-- Select pane -->
-                      <div id="select" class="sourceHolder connectedSortable tab-pane">
-                        <!-- Load select alternatives here -->
-                      </div>
-                      
-                      <!-- Button pane -->
-                      <div id="buttons" class="sourceHolder connectedSortable tab-pane">
-                        <!-- Load button alternatives here -->
-                      </div>
-                      
-                    </div>
-                  </fieldset>
+                  </div>
                 </form>
               </div>
             </div>
             
-            <!-- Target -->
-            <div id="formVisualizer" class="col-lg-6 col-sm-12">
-              <h2>Your Form</h2>
-              <hr></hr>
-              <form class="form-horizontal area">
-                <legend class="">New Form</legend>
-                <div id="target" class="connectedSortable">
-                  
-                </div>
-              </form>
-            </div>
-        </div>        
-        <div class="row">
-          <div class="col-lg-12 col-sm-12">
-            <h2>Generated markup</h2>
-            <hr></hr>
-            <textarea id="formSource"></textarea>
           </div>
-        </div>
-        <!-- Save form to file section -->
-        <div class="row">
-          <div class="col-lg-9 col-sm-12">
-            <h2>Save to file</h2>
+          
+          <!-- Validation tab -->
+          <div class="tab-pane" id="tab2">
+            <h2>Validation</h2>
             <hr></hr>
-            <!-- Choose type of save -->
-            <div>
-              <label class="control-label col-sm-3" for="choseTypeOfSave" style="cursor: pointer;">
-                Create file
-              </label>
-              <div class="col-sm-9">
-                <label class="radio" for="choseTypeOfSave-0" style="cursor: pointer;">
-                  <input id="formCodeOnly" type="radio" name="choseTypeOfSave" value="formCode" checked="checked" />with form code only
-                </label>
-                <label class="radio" for="choseTypeOfSave-1" style="cursor: pointer;">
-                  <input id="appendFormToTemplate" type="radio" name="choseTypeOfSave" value="formCodeToTemplate" />append the form code to a starter template (bootstrap and jQuery)
-                </label>
-              </div>
-              <div class="clear"></div>
-              <div id="pageOptionSection" class="col-sm-12" style="display: none;">
-                <!-- Lib versions -->
-                <div class="col-sm-3"></div>
-                <div class="col-sm-4">
-                  <div class="input-group">
-                    <span class="input-group-addon">jQuery Version</span>
-                    <input id="jQueryVersionInput" name="jQueryVersionInput" type="text" class="form-control" placeholder="placeholder" value="1.11.0">
+            TODO: Validation
+          </div>
+          
+          <!-- Libraries tab -->
+          <div class="tab-pane" id="tab3">
+            <!-- Save form to file section -->
+            <div class="row">
+              <div class="col-lg-9 col-sm-12">
+                <h2>Libraries</h2>
+                <hr></hr>
+                <!-- Choose type of save -->
+                <div>
+                  <label class="control-label col-sm-3" for="choseTypeOfSave" style="cursor: pointer;">
+                    Create
+                  </label>
+                  <div class="col-sm-9">
+                    <label class="radio" for="formCodeOnly" style="cursor: pointer;">
+                      <input id="formCodeOnly" type="radio" name="choseTypeOfSave" value="formCode" checked="checked" />with form code only
+                    </label>
+                    <label class="radio" for="appendFormToTemplate" style="cursor: pointer;">
+                      <input id="appendFormToTemplate" type="radio" name="choseTypeOfSave" value="formCodeToTemplate" />append the form code to a template page (jQuery and Twitter Bootstrap)
+                    </label>
                   </div>
-                  <p class="help-block"></p>
-                </div>
-                <div class="col-sm-4">
-                  <div class="input-group">
-                    <span class="input-group-addon">Bootstrap Version</span>
-                    <input id="bootstrapVersionInput" name="bootstrapVersionInput" type="text" class="form-control" placeholder="placeholder" value="3.1.1">
+                  <div class="clear"></div>
+                  <div id="pageOptionSection" class="col-sm-12" style="display: none;">
+                    <!-- Lib versions -->
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-4">
+                      <div class="input-group">
+                        <span class="input-group-addon">jQuery Version</span>
+                        <input id="jQueryVersionInput" name="jQueryVersionInput" type="text" class="form-control" placeholder="placeholder" value="1.11.0">
+                      </div>
+                      <p class="help-block"></p>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="input-group">
+                        <span class="input-group-addon">Bootstrap Version</span>
+                        <input id="bootstrapVersionInput" name="bootstrapVersionInput" type="text" class="form-control" placeholder="placeholder" value="3.1.1">
+                      </div>
+                      <p class="help-block"></p>
+                    </div>
+                    
+                    <!-- Select single. Themes -->
+                    <label class="col-sm-3 control-label" style="padding-left: 0!important" for="themeSelect">Theme</label>
+                    <div class="col-sm-6">
+                      <select id="themeSelect" name="themeSelect" class="form-control">
+                        <option value="">No theme</option>
+                        <option value="amelia/bootstrap.min.css">Amelia</option>
+                        <option value="cerulean/bootstrap.min.css">Cerulean</option>
+                        <option value="cosmo/bootstrap.min.css">Cosmo</option>
+                        <option value="cyborg/bootstrap.min.css">Cyborg</option>
+                        <option value="flatly/bootstrap.min.css">Flaty</option>
+                        <option value="journal/bootstrap.min.css">Journal</option>
+                        <option value="lumen/bootstrap.min.css">Lumen</option>
+                        <option value="readable/bootstrap.min.css">Readable</option>
+                        <option value="simplex/bootstrap.min.css">Simplex</option>
+                        <option value="slate/bootstrap.min.css">Slate</option>
+                        <option value="spacelab/bootstrap.min.css">SpaceLab</option>
+                        <option value="superhero/bootstrap.min.css">Superhero</option>
+                        <option value="united/bootstrap.min.css">United</option>
+                        <option value="yeti/bootstrap.min.css">Yeti</option>
+                        <option value="darkly/bootstrap.min.css">Darkly</option>
+                      </select>
+                      <p class="help-block"></p>
+                    </div>
                   </div>
-                  <p class="help-block"></p>
-                </div>
-                
-                <!-- Select single. Themes -->
-                <label class="col-sm-3 control-label" for="themeSelect">Theme</label>
-                <div class="col-sm-6">
-                  <select id="themeSelect" name="themeSelect" class="form-control">
-                    <option value="">No theme</option>
-                    <option value="amelia/bootstrap.min.css">Amelia</option>
-                    <option value="cerulean/bootstrap.min.css">Cerulean</option>
-                    <option value="cosmo/bootstrap.min.css">Cosmo</option>
-                    <option value="cyborg/bootstrap.min.css">Cyborg</option>
-                    <option value="flatly/bootstrap.min.css">Flaty</option>
-                    <option value="journal/bootstrap.min.css">Journal</option>
-                    <option value="lumen/bootstrap.min.css">Lumen</option>
-                    <option value="readable/bootstrap.min.css">Readable</option>
-                    <option value="simplex/bootstrap.min.css">Simplex</option>
-                    <option value="slate/bootstrap.min.css">Slate</option>
-                    <option value="spacelab/bootstrap.min.css">SpaceLab</option>
-                    <option value="superhero/bootstrap.min.css">Superhero</option>
-                    <option value="united/bootstrap.min.css">United</option>
-                    <option value="yeti/bootstrap.min.css">Yeti</option>
-                    <option value="darkly/bootstrap.min.css">Darkly</option>
-                  </select>
-                  <p class="help-block"></p>
+                  <div class="clear"></div>
                 </div>
               </div>
-              <div class="clear"></div>
-            <!-- Choose file name and save -->
-            <div class="input-group" style="padding-top: 15px;">
-              <input id="saveFileInput" type="text" class="form-control" placeholder="myform.html">
-              <div class="input-group-btn">
-                <button id="saveFileButton" type="button" class="btn btn-default" tabindex="-1">Create file</button>
-                <button id="previewButton" type="button" class="btn btn-default" tabindex="-1">Preview</button>
-              </div>
+              <!-- /End save to file -->
             </div>
           </div>
-        </div>
-      <!-- /End save to file -->
-      </div>
-      <div id="previewSection" class="row" style="display: none; padding-bottom: 20px;">
-          <div class="col-sm-12">
-            <h2>Preview</h2>
+          
+          <!-- Source tab -->
+          <div class="tab-pane" id="tab4">
+            <div class="row">
+              <div class="col-lg-12 col-sm-12">
+                <h2>Source</h2>
+                <hr></hr>
+                <textarea id="formSource"></textarea>
+              </div>
+            </div>
           </div>
-          <div class="col-sm-12">
-            <a id="previewExitLink" href="javascript:void(0)">Tillbaka</a>
+          
+          <!-- Preview tab -->
+          <div class="tab-pane" id="tab5">
+            <div id="previewSection" class="row" style="padding-bottom: 20px;">
+              <div class="col-sm-12">
+                <h2>Preview</h2>
+                <hr></hr>
+              </div>
+            </div>
           </div>
+          
+          <!-- Finish tab -->
+          <div class="tab-pane" id="tab6">
+            <h2>Finish</h2>
+            <hr></hr>
+            <div class="row">
+              <div class="col-sm-5">
+                <div class="input-group" style="padding-top: 15px;">
+                  <input id="saveFileInput" type="text" class="form-control" placeholder="myform.html">
+                  <div class="input-group-btn">
+                    <button id="saveFileButton" type="button" class="btn btn-default" tabindex="-1">Create file</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-7"></div>
+              <div class="clear"></div>
+            </div>
+          </div>
+          
+          <!-- Wizard Pager -->
+          <ul class="pager wizard">
+            <li class="previous first" style="display:none;"><a href="#">First</a></li>
+            <li class="previous"><a href="#">Previous</a></li>
+            <li class="next last" style="display:none;"><a href="#">Last</a></li>
+              <li class="next"><a href="#">Next</a></li>
+          </ul>
+        </div>	
       </div>
     </div>
     
@@ -220,6 +287,7 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/jquery.sortable.min.js"></script>
     <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="js/jquery.bootstrap.wizard.min.js"></script>
     <script src="js/jQuery.getComments.min.js"></script>
     <script src="js/jQuery.htmlClean.js"></script>
     <script src="js/FileSaver.js"></script>

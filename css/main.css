@@ -10,7 +10,7 @@ body {
 
 ::selection {
 	background: #fff!important; /* Safari */
-	}
+}
 ::-moz-selection {
 	background: #fff; /* Firefox */
 }
@@ -44,7 +44,7 @@ body {
   border: 1px solid #ccc;
 }
 
-.tab-pane {
+#componentHolder .tab-pane {
   padding: 15px 0 15px 0;
 }
 
@@ -59,37 +59,11 @@ body {
   font-size: 11px;
 }
 
-/* Override bootstrap defaults */
-label {
-  font-weight: normal!important; 
-}
-
-.form-group div[class^='col-'] {
-  pointer-events: none;
-}
-
-.form-group, .form-group label {
-  cursor: pointer;
-}
-
-.form-group:hover  {
-  /* No hover effect */
-}
-
 .ui-sortable-helper{
   -moz-box-shadow: 10px 10px 5px #888;
   -webkit-box-shadow: 10px 10px 5px #888;
   box-shadow: 10px 10px 5px #888;
   background-color: #fff!important;
-
-/*
-  background-color: #fff!important;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  border-bottom: 1px solid #6b6b6b;
-  border-right: 1px solid #6b6b6b;
-  */
-  /*overflow-x: hidden!important;*/
 }
 
 /****  Menus   ********************************************************
@@ -142,7 +116,15 @@ label {
   margin-left: 5px;
   margin-right: 5px;
 }
-/* Override bootstrap standard */
+
+/****  Override bootstrap standard   ********************************************************
+*/
+
+/* Wizard */
+#mainWizard .navbar {
+  margin-top: 10px;
+}
+
 .form-horizontal .form-group.highLight {
   margin-right: 0px!important;
   margin-left: 0px!important;
@@ -156,4 +138,24 @@ label {
   -moz-box-shadow: 10px 10px 5px #888;
   -webkit-box-shadow: 10px 10px 5px #888;
   box-shadow: 10px 10px 5px #888;
+}
+
+label {
+  font-weight: normal!important; 
+}
+
+.form-group div[class^='col-'] {
+  pointer-events: none;
+}
+
+.form-group, .form-group label {
+  cursor: pointer;
+}
+
+.form-group:hover  {
+  /* No hover effect */
+}
+
+.sr-only {
+  position: relative!important;
 }

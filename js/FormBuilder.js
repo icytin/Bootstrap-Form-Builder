@@ -19,6 +19,13 @@ var FormBuilder = function ($) {
           });
         });
       });
+      
+      $('#mainWizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
+        var $total = navigation.find('li').length;
+        var $current = index+1;
+        var $percent = ($current/$total) * 100;
+        $('#mainWizard').find('.progress-bar').css({width:$percent+'%'}).find('span').html($percent.toString().split('.')[0] + '%');
+      }});
     });
 
     //== Private functions ==
@@ -28,6 +35,7 @@ var FormBuilder = function ($) {
       ComponentActionHandler.init();
       initTextArea();
       FileSaver.init();
+      PageBuilder.init();
     }
     
     var initTextArea = function() {
@@ -845,6 +853,20 @@ var FormBuilder = function ($) {
     // ==== Markup ====
     var MarkupHandler = function() {
       return {
+        getSource: function(cleanHtml) {
+          var formSource = $('#formSource').val(); // Form only
+          if(cleanHtml) {
+            formSource = $('\n' + $.htmlClean(formSource, {format: true, allowComments: true, allowedAttributes: [["id"], ["style"], ["for"], ["name"], ["class"], ["type"]] } ) + '\n');
+          }
+          var source = formSource;
+          if($('#appendFormToTemplate').is(':checked')) {
+            var $page = PageBuilder.getBootstrapTemplate($('#jQueryVersionInput').val(), $('#bootstrapVersionInput').val());
+            $(formSource).prependTo($page.find('body .container'));
+            source = '<!DOCTYPE html>\n<html lang="en">\n' + $page.html() + '\n</html>';
+          }
+          
+          return source;
+        },
         refresh: function() {
           // Build the generated source form
           var ef = $('#formVisualizer form').clone();
@@ -871,7 +893,39 @@ var FormBuilder = function ($) {
     }(jQuery);
     
     var PageBuilder = function() {
+      
+      // Refreshes the iframe preview
+      var refreshPreview = function() {
+        if($('#previewSection iframe').length === 0) {
+          $('<iframe />', {
+              name: 'previewFrame',
+              id:   'previewFrame',
+              width: '100%',
+              frameBorder: '0'
+          }).appendTo('#previewSection div:eq(0)');
+        }
+        
+        // Set source and show the iframe
+        var $frame = $('#previewSection iframe');
+        var formSource = MarkupHandler.getSource(true);
+        $frame.contents().find('html').html(formSource);
+        $frame.height($frame.contents().find('html').height() + 20);
+        
+        // Form fixes
+        $frame.contents().find('form').submit(function( event ) {
+          event.preventDefault();
+        });
+      };
       return {
+        init: function() {
+          $('#themeSelect').change(function(e) {
+            refreshPreview();
+          });
+          
+          $('a[href="#tab5"').click(function() {
+            refreshPreview();
+          });
+        },
         getBootstrapTemplate: function(jQueryVersion, bootstrapVersion) {
           var $dom = $('html').clone();
           $dom.removeAttr('class');
@@ -879,8 +933,8 @@ var FormBuilder = function ($) {
           $dom.find('head').html('\n');
           $dom.find('body').html('\n').append('\n<!-- Body content section -->\n\n<div class="container">\n</div>\n');
           
-                      // Optional theme
-            var optionalTheme = $('#themeSelect').val() !== '' ? ('<!-- Optional theme -->\n<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/' + bootstrapVersion + '/' + $('#themeSelect').val() + '">\n') : '\n';
+          // Optional theme
+          var optionalTheme = $('#themeSelect').val() !== '' ? ('<!-- Optional theme -->\n<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/' + bootstrapVersion + '/' + $('#themeSelect').val() + '">\n') : '\n';
           
           // Head
           $('\n<meta charset="utf-8">\n' +
@@ -923,52 +977,12 @@ var FormBuilder = function ($) {
         init: function() {
         
           // Save button
-          $('#saveFileButton, #previewButton').click(function() {
+          $('#saveFileButton').click(function() {
             try
             {
-              $('#fileErr').remove();
-              var formSource = $('#formSource').val(); // Form only
-              var source = formSource;
-              if($('#appendFormToTemplate').is(':checked')) {
-                var $page = PageBuilder.getBootstrapTemplate($('#jQueryVersionInput').val(), $('#bootstrapVersionInput').val());
-                formSource = $('\n' + $.htmlClean($('#formSource').val(), {format: true, allowComments: true, allowedAttributes: [["id"], ["style"], ["for"], ["name"], ["class"], ["type"]] } ) + '\n');
-                $(formSource).prependTo($page.find('body .container'));
-                source = '<!DOCTYPE html>\n<html lang="en">\n' + $page.html() + '\n</html>';
-              }
-              
-              var blob = new Blob([source], {type: "text/plain;charset=utf-8"});
-              if($(this).attr('id') === 'saveFileButton') {
-                saveAs(blob, $('#saveFileInput').val());
-              }
-              else {
-                $('#mainHolder .row').toggle();
-                if($('#previewSection iframe').length === 0) {
-                  $('<iframe />', {
-                      name: 'previewFrame',
-                      id:   'previewFrame',
-                      width: '100%',
-                      frameBorder: '0'
-                      
-                  }).appendTo('#previewSection div:eq(0)');
-                }
-                
-                // Set source and show the iframe
-                var $frame = $('#previewSection iframe');
-                $frame.contents().find('html').html(source);
-                $frame.height($frame.contents().find('html').height() + 20);
-                $('#previewSection').show();
-                
-                // Form fixes
-                $frame.contents().find('form').submit(function( event ) {
-                  event.preventDefault();
-                });
-                
-                // Back
-                $('#previewExitLink').unbind('click').click(function() {
-                  $('#mainHolder .row').toggle();
-                  $('#previewSection').hide();
-                });
-              }
+              $('#fileErr').remove();             
+              var blob = new Blob([MarkupHandler.getSource(true)], {type: "text/plain;charset=utf-8"});
+              saveAs(blob, $('#saveFileInput').val());
             }
             catch(e) {
               $('<br /><div id="fileErr" class="alert alert-danger"><strong>Oh snap!</strong> The file couldn´t be saved.</div>').insertAfter($(this).parents('.input-group'));
